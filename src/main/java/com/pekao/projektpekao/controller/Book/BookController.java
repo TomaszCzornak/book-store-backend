@@ -29,6 +29,7 @@ public class BookController {
         this.electronicJournalService = electronicJournalService;
     }
 
+//    testowy endpoint do odbioru na froncie
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/all")
     public BooksResponse getAllBooks() {
