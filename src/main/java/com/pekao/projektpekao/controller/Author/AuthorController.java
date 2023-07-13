@@ -1,6 +1,8 @@
 package com.pekao.projektpekao.controller.Author;
 
-import com.pekao.projektpekao.domain.Author;
+import com.pekao.projektpekao.domain.Author.Author;
+import com.pekao.projektpekao.domain.Author.AuthorParams;
+import com.pekao.projektpekao.domain.Author.AuthorParamsMapper;
 import com.pekao.projektpekao.service.AuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,10 +48,8 @@ public class AuthorController {
 
     @PostMapping()
     public AuthorOnlyResponse postAuthor(@RequestBody AuthorDto authorDto) {
-//        Author authorToPost = AuthorEntityMapper.toAuthorEntity(authorDto);
-//        Author authorSaved = authorService.addAuthor(authorToPost);
-        CreateAuthorParams createAuthorParams = AuthorEntityMapper.toCreatAuthorParams(authorDto);
-        AuthorDto authorSaved = authorService.addAuthor(createAuthorParams);
+        AuthorParams authorParams = AuthorParamsMapper.toAuthorParams(authorDto);
+        Author authorSaved = authorService.addAuthor(authorParams);
         AuthorDto authorDto1 = AuthorDtoMapper.toAuthorDto(authorSaved);
         return AuthorOnlyResponse.builder()
                 .authorOnlyResponse(authorDto1)
@@ -61,7 +61,7 @@ public class AuthorController {
         if (!id.equals(authorDto.getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
         }
-        Author authorToPut = AuthorEntityMapper.toAuthorEntity(authorDto);
-        authorService.updateAuthor(authorToPut);
+        AuthorParams authorParams = AuthorParamsMapper.toAuthorParams(authorDto);
+        authorService.addAuthor(authorParams);
     }
 }

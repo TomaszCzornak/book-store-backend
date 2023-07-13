@@ -1,6 +1,8 @@
 package com.pekao.projektpekao.service;
 
-import com.pekao.projektpekao.domain.Author;
+import com.pekao.projektpekao.controller.Author.AuthorEntityMapper;
+import com.pekao.projektpekao.domain.Author.AuthorParams;
+import com.pekao.projektpekao.domain.Author.Author;
 import com.pekao.projektpekao.infrastructure.AuthorDao;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -34,11 +36,13 @@ public class AuthorService {
         authorDaoJpa.deleteAuthorById(id);
     }
 
-    public Author addAuthor(Author author) {
-        return authorDaoJpa.addAuthor(author);
+    public Author addAuthor(AuthorParams author) {
+        Author authorEntity = AuthorEntityMapper.toAuthorEntity(author);
+        return authorDaoJpa.addAuthor(authorEntity);
     }
 
-    public Author updateAuthor(Author author) {
-        return authorDaoJpa.addAuthor(author);
+    public Author updateAuthor(AuthorParams authorParams) {
+        Author authorMapped = AuthorEntityMapper.toAuthorEntity(authorParams);
+        return authorDaoJpa.addAuthor(authorMapped);
     }
 }

@@ -1,9 +1,9 @@
 package com.pekao.projektpekao;
 
-import com.pekao.projektpekao.domain.Author;
+import com.pekao.projektpekao.domain.Author.Author;
 import com.pekao.projektpekao.domain.book.Book;
-import com.pekao.projektpekao.domain.Comment;
-import com.pekao.projektpekao.domain.User;
+import com.pekao.projektpekao.domain.Comment.Comment;
+import com.pekao.projektpekao.domain.User.User;
 import com.pekao.projektpekao.repository.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
@@ -43,14 +43,31 @@ public class StartUp implements ApplicationListener<ContextRefreshedEvent> {
         boolean booksAreEmpty = bookRepository.findAll().isEmpty();
         if (authorsAreEmpty || commentsAreEmpty || usersAreEmpty || booksAreEmpty) {
             final Author author1 = Author.builder()
-                    .withFirstName("Autor_Mock")
-                    .withLastName("Nazwisko_Mock")
+                    .withFirstName("Stephen")
+                    .withLastName("King")
+                    .withAuthorPhotoUrl("https://t.ly/js0-")
                     .buildNewEntity();
             final Author author2 = Author.builder()
-                    .withFirstName("Mock_Autor")
-                    .withLastName("Mock_Nazwisko")
+                    .withAuthorPhotoUrl("https://t.ly/DukBw")
+                    .withLastName("Walls")
+                    .withFirstName("Craig")
                     .buildNewEntity();
-            authorRepository.saveAll(List.of(author1, author2));
+            final Author author3 = Author.builder()
+                    .withAuthorPhotoUrl("https://t.ly/OsS1")
+                    .withLastName("Samuel")
+                    .withFirstName("Beckett")
+                    .buildNewEntity();
+            final Author author4 = Author.builder()
+                    .withAuthorPhotoUrl("https://t.ly/gTXmv")
+                    .withLastName("Michael")
+                    .withFirstName("Swaine")
+                    .buildNewEntity();
+            final Author author5 = Author.builder()
+                    .withAuthorPhotoUrl("https://t.ly/SxGs")
+                    .withLastName("Ewa")
+                    .withFirstName("Guzik-Makaruk")
+                    .buildNewEntity();
+            authorRepository.saveAll(List.of(author1, author2, author3, author4,author5));
             final Comment comment1 = Comment.builder()
                     .content("Mockowy komentarz 1")
                     .buildNewEntity();
@@ -79,23 +96,62 @@ public class StartUp implements ApplicationListener<ContextRefreshedEvent> {
 
             Book bookFromBuilder1 = Book.builder()
                     .title("Spring w Akcji")
-                    .author(author1)
+                    .author(author2)
                     .commentList(List.of(comment2))
                     .publisher(Book.Publisher.ZNAK)
+                    .bookPhoto("https://shorturl.at/uAGU8")
                     .buildNewEntity();
             Book bookFromBuilder2 = Book.builder()
-                    .title("Java")
-                    .author(author2)
+                    .title("Darkness")
+                    .author(author1)
                     .commentList(List.of(comment1))
                     .publisher(Book.Publisher.PWN)
+                    .bookPhoto("https://t.ly/Gf0n")
                     .buildNewEntity();
             Book bookFromBuilder3 = Book.builder()
                     .title("Programowanie funkcyjne")
-                    .author(author2)
+                    .author(author4)
                     .commentList(List.of(comment3))
                     .publisher(Book.Publisher.AGORA)
+                    .bookPhoto("https://t.ly/5L6i")
                     .buildNewEntity();
-            bookRepository.saveAll(List.of(bookFromBuilder1, bookFromBuilder2, bookFromBuilder3));
+            Book bookFromBuilder4 = Book.builder()
+                    .title("Waiting For Godot")
+                    .author(author3)
+                    .commentList(List.of(comment3))
+                    .publisher(Book.Publisher.AGORA)
+                    .bookPhoto("https://upload.wikimedia.org/wikipedia/commons/2/2b/En_attendant_Godot%2C_Festival_d%27Avignon%2C_1978_f22.jpg")
+                    .buildNewEntity();
+            Book bookFromBuilder5 = Book.builder()
+                    .title("Przestępczość Farmeceutyczna w XXI Wieku")
+                    .author(author5)
+                    .commentList(List.of(comment3))
+                    .publisher(Book.Publisher.AGORA)
+                    .bookPhoto("https://t.ly/uS4d2")
+                    .buildNewEntity();
+            Book bookFromBuilder6 = Book.builder()
+                    .title("Tortilla Flat")
+                    .author(author3)
+                    .commentList(List.of(comment3))
+                    .publisher(Book.Publisher.AGORA)
+                    .bookPhoto("https://upload.wikimedia.org/wikipedia/commons/d/d6/Tortilla_Flat_%281935_1st_ed_dust_jacket%29.jpg")
+                    .buildNewEntity();
+            Book bookFromBuilder7 = Book.builder()
+                    .title("Tortilla Flat")
+                    .author(author3)
+                    .commentList(List.of(comment3))
+                    .publisher(Book.Publisher.AGORA)
+                    .bookPhoto("https://upload.wikimedia.org/wikipedia/commons/d/d6/Tortilla_Flat_%281935_1st_ed_dust_jacket%29.jpg")
+                    .buildNewEntity();
+            Book bookFromBuilder8 = Book.builder()
+                    .title("Tortilla Flat")
+                    .author(author3)
+                    .commentList(List.of(comment3))
+                    .publisher(Book.Publisher.AGORA)
+                    .bookPhoto("https://upload.wikimedia.org/wikipedia/commons/d/d6/Tortilla_Flat_%281935_1st_ed_dust_jacket%29.jpg")
+                    .buildNewEntity();
+
+            bookRepository.saveAll(List.of(bookFromBuilder1, bookFromBuilder2, bookFromBuilder3, bookFromBuilder4, bookFromBuilder5, bookFromBuilder6,bookFromBuilder7, bookFromBuilder8));
             userRepository.saveAll(List.of(user1, user2));
 
         }

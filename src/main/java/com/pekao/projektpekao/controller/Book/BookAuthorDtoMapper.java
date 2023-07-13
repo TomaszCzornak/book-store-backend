@@ -13,6 +13,7 @@ public class BookAuthorDtoMapper {
         return BookAuthorDto.builder()
                 .id(book.getId())
                 .title(book.getTitle())
+                .bookPhoto(book.getBookPhoto())
                 .build();
     }
 

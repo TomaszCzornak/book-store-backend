@@ -1,10 +1,13 @@
-package com.pekao.projektpekao.domain;
+package com.pekao.projektpekao.domain.ElectronicJournal;
+
+import com.pekao.projektpekao.domain.User.User;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Entity
@@ -88,10 +91,6 @@ public class ElectronicJournal {
             this.eventType = eventType;
             return this;
         }
-
-        public ElectronicJournal buildNew() {
-            return new ElectronicJournal(null, created, name, user, eventType);
-        }
         public ElectronicJournal buildFrom() {
             if (Stream.of(id, created, name, eventType).anyMatch(Objects::isNull)) {
                 throw new IllegalStateException("On of required values is null: [%s]".formatted(List.of(id, created, name, user, eventType)));
@@ -99,10 +98,25 @@ public class ElectronicJournal {
 
             return new ElectronicJournal(id, created, name, user, eventType);
         }
+        public ElectronicJournal buildNewEntity() {
+            if (id != null) {
+                throw new IllegalStateException("Id must be null if you want create new Entity");
+            }
+
+            final ElectronicJournal electronicJournal = new ElectronicJournal(null, created, name, user,eventType);
+
+//        Optional.ofNullable(user.commentList)
+//                .ifPresent(comments ->
+//                        comments.forEach(comment -> comment.setUser(user))
+//                );
+
+            return electronicJournal;
+        }
     }
     public static ElectronicJournalBuilder builder() {
         return new ElectronicJournal.ElectronicJournalBuilder();
     }
+
 
     public Long getId() {
         return id;

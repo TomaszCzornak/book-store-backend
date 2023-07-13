@@ -1,7 +1,7 @@
 package com.pekao.projektpekao.service;
 
 import com.pekao.projektpekao.CommentTestUtility;
-import com.pekao.projektpekao.domain.Comment;
+import com.pekao.projektpekao.domain.Comment.Comment;
 import com.pekao.projektpekao.repository.CommentRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class CommentServiceTest {
     @Test
     void findAllComments() {
         //given
-        final List<Comment> commentList = commentRepository.saveAll(
+        commentRepository.saveAll(
                 List.of(CommentTestUtility.createComment(),
                         CommentTestUtility.createComment(),
                         CommentTestUtility.createComment()));
@@ -89,7 +89,7 @@ class CommentServiceTest {
                 .build();
         Comment commentUpdated = commentService.updateComment(commentChangedToSave);
         //then
-        assertEquals(commentUpdated.getContent(), "Zmieniony komentarz");
+        assertEquals("Zmieniony komentarz", commentUpdated.getContent());
 
     }
 

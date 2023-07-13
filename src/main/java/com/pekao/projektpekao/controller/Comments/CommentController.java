@@ -1,6 +1,6 @@
 package com.pekao.projektpekao.controller.Comments;
 
-import com.pekao.projektpekao.domain.Comment;
+import com.pekao.projektpekao.domain.Comment.Comment;
 import com.pekao.projektpekao.service.CommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class CommentController {
 
     @GetMapping("/all")
     public CommentsResponse getAllComments() {
-        List<CommentDto> commentDtoList = CommentDtoMapper.toCommentsDto(commentService.findAllComments());
+        List<com.pekao.projektpekao.controller.Comments.CommentDto> commentDtoList = CommentDtoMapper.toCommentsDto(commentService.findAllComments());
         return CommentsResponse.builder()
                 .commentsResponseList(commentDtoList)
                 .build();
@@ -29,7 +29,7 @@ public class CommentController {
 
     @GetMapping("/{id}")
     public CommentResponse getCommentById(@PathVariable("id") Long id) {
-        CommentDto singleComment = CommentDtoMapper.toCommentDto(commentService.findCommentById(id));
+        com.pekao.projektpekao.controller.Comments.CommentDto singleComment = CommentDtoMapper.toCommentDto(commentService.findCommentById(id));
         return CommentResponse.builder()
                 .commentResponse(singleComment)
                 .build();
@@ -41,17 +41,17 @@ public class CommentController {
     }
 
     @PostMapping()
-    public CommentResponse postComment(@RequestBody CommentDto commentDto) {
+    public CommentResponse postComment(@RequestBody com.pekao.projektpekao.controller.Comments.CommentDto commentDto) {
         Comment commentToPost = CommentEntityMapper.toCommentEntity(commentDto);
         Comment commentSaved = commentService.addComment(commentToPost);
-        CommentDto commentDtoMapped = CommentDtoMapper.toCommentDto(commentSaved);
+        com.pekao.projektpekao.controller.Comments.CommentDto commentDtoMapped = CommentDtoMapper.toCommentDto(commentSaved);
         return CommentResponse.builder()
                 .commentResponse(commentDtoMapped)
                 .build();
     }
 
     @PutMapping("/{id}")
-    public void putComment(@PathVariable("id") Long id, @RequestBody CommentDto commentDto) {
+    public void putComment(@PathVariable("id") Long id, @RequestBody com.pekao.projektpekao.controller.Comments.CommentDto commentDto) {
         if (!Objects.equals(id, commentDto.getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
         }

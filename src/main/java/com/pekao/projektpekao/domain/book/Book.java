@@ -1,14 +1,17 @@
 package com.pekao.projektpekao.domain.book;
 
-import com.pekao.projektpekao.domain.Author;
-import com.pekao.projektpekao.domain.Comment;
-import com.pekao.projektpekao.domain.ElectronicJournal;
+import com.pekao.projektpekao.domain.Author.Author;
+import com.pekao.projektpekao.domain.Comment.Comment;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Optional;
 
 @Entity
+@Setter
+@Getter
 public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +21,10 @@ public class Book {
 	private Author author;
 	@OneToMany(mappedBy = "book", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private List<Comment> commentList;
+	private String bookPhoto;
 	
 	// todo usuwamy relację
-	@OneToOne(cascade = CascadeType.ALL)
-	private ElectronicJournal electronicJournal;
+	//usunięta relacja z klasy ElectronicJournal
 	@Enumerated(EnumType.STRING)
 	private Publisher publisher;
 	
@@ -36,97 +39,78 @@ public class Book {
 	}
 	
 	Book(
-			final Long id, final String title, final Author author,
-			final List<Comment> commentList, final Publisher publisher
+            final Long id, final String title, final Author author,
+            final List<Comment> commentList, final Publisher publisher, final String bookPhoto
 	) {
 		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.commentList = commentList;
-//		createElectronicJournalEventType(publisher);
 		this.publisher = publisher;
+		this.bookPhoto = bookPhoto;
 	}
 	
 	// pattern Factory
-//	private static ElectronicJournal createElectronicJournalEventType(Publisher publisher) {
-//		return switch (publisher) {
-//			case WYDAWNICTWO_LITERACKIE -> ElectronicJournal.builder()
-//					.eventType(ElectronicJournal.EventType.MANAGER)
-//					.name("Tu wydawcą jest Wydawnictwo Literackie")
-//					.buildNew();
-//			case PWN -> ElectronicJournal.builder()
-//					.eventType(ElectronicJournal.EventType.DONE)
-//					.name("Tu wydawcą jest PWN")
-//					.buildNew();
-//			case ZNAK -> ElectronicJournal.builder()
-//					.eventType(ElectronicJournal.EventType.TO_DO)
-//					.name("Tu wydawcą jest ZNAK")
-//					.buildNew();
-//			case AGORA -> ElectronicJournal.builder()
-//					.eventType(ElectronicJournal.EventType.WIP)
-//					.name("Tu wydawcą jest AGORA")
-//					.buildNew();
-//			default -> throw new IllegalArgumentException("Invalid example: " + publisher);
-//		};
-//	}
-	
+
 	public static class Builder {
 		private Long id;
 		private String title;
 		private Author author;
 		private List<Comment> commentList;
-		private ElectronicJournal electronicJournal;
 		private Publisher publisher;
-		
+		private String bookPhoto;
+
+
 		private Builder() {
 		}
-		
+
 		public Builder from(Book book) {
 			this.id = book.id;
 			this.title = book.title;
 			this.author = book.author;
 			this.commentList = book.commentList;
-			this.electronicJournal = createElectronicJournalEventType(publisher);
 			this.publisher = book.publisher;
+			this.bookPhoto = book.bookPhoto;
 			return this;
 		}
-		
+
 		public Builder fromExisting(Book book) {
 			this.id = book.id;
 			this.title = book.title;
 			this.author = book.author;
 			this.commentList = book.commentList;
 			this.publisher = book.publisher;
+			this.bookPhoto = book.bookPhoto;
 			return this;
 		}
-		
+
 		public Builder id(Long id) {
 			this.id = id;
 			return this;
 		}
-		
+
 		public Builder title(String title) {
 			this.title = title;
 			return this;
 		}
-		
+
 		public Builder author(Author author) {
 			this.author = author;
 			return this;
 		}
-		
+
 		public Builder commentList(List<Comment> commentList) {
 			this.commentList = commentList;
 			return this;
 		}
-		
-		public Builder electronicJournal(ElectronicJournal electronicJournal) {
-			this.electronicJournal = electronicJournal;
-			return this;
-		}
-		
+
+
 		public Builder publisher(Publisher publisher) {
 			this.publisher = publisher;
+			return this;
+		}
+		public Builder bookPhoto(String bookPhoto) {
+			this.bookPhoto = bookPhoto;
 			return this;
 		}
 
@@ -134,48 +118,25 @@ public class Book {
 			if (id != null) {
 				throw new IllegalStateException("Id must be null if you want create new Entity");
 			}
-			
-			final Book book = new Book(null, title, author, commentList, electronicJournal, publisher);
-			
+
+			final Book book = new Book(null, title, author, commentList, publisher, bookPhoto);
+
 			Optional.ofNullable(book.commentList)
 					.ifPresent(comments ->
 							comments.forEach(comment -> comment.setBook(book))
 					);
-			
+
 			return book;
 		}
-		
+
 		// to jest ukryty mapper
 		public Book build() {
-			return new Book(id, title, author, commentList, electronicJournal, publisher);
+			return new Book(id, title, author, commentList, publisher, bookPhoto);
 		}
 	}
-	
+
 	public static Builder builder() {
 		return new Book.Builder();
 	}
-	
-	public Long getId() {
-		return id;
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-	
-	public Author getAuthor() {
-		return author;
-	}
-	
-	public List<Comment> getCommentList() {
-		return commentList;
-	}
-	
-	public ElectronicJournal getElectronicJournal() {
-		return electronicJournal;
-	}
-	
-	public Publisher getPublisher() {
-		return publisher;
-	}
+
 }

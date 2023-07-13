@@ -1,4 +1,6 @@
-package com.pekao.projektpekao.domain;
+package com.pekao.projektpekao.domain.User;
+
+import com.pekao.projektpekao.domain.Comment.Comment;
 
 import javax.persistence.*;
 import java.time.LocalDate;

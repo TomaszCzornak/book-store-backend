@@ -1,0 +1,3 @@
+1. tworzenie dziennika przy tworzeniu Autora
+3. dodać paramsy w Comment tylko!
+2. Poprawić testy i Utils w testach

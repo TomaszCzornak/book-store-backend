@@ -1,7 +1,8 @@
 package com.pekao.projektpekao;
 
-import com.pekao.projektpekao.domain.Comment;
-import com.pekao.projektpekao.domain.User;
+import com.pekao.projektpekao.domain.Comment.Comment;
+import com.pekao.projektpekao.domain.User.User;
+import com.pekao.projektpekao.domain.User.UserParams;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,8 +13,7 @@ public class UserTestUtility {
         return User.builder()
                 .firstName(firstName)
                 .lastName(lastName)
-                .createdAt(LocalDate.now())
-                .buildNewEntity();
+                .build();
     }
 
     public static User createUser1WithComments() {
@@ -23,7 +23,7 @@ public class UserTestUtility {
                 "adam.kowalski@gmail.com",
                 List.of(Comment.builder()
                         .content("Testowy Komentarz")
-                        .buildNewEntity()
+                        .build()
                 )
         );
     }

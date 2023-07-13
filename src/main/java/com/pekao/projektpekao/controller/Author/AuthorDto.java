@@ -5,6 +5,7 @@ public class AuthorDto {
     private Long id;
     private String firstName;
     private String lastName;
+    private String authorPhotoUrl;
 
     public Long getId() {
         return id;
@@ -18,11 +19,17 @@ public class AuthorDto {
         return lastName;
     }
 
+    public String getAuthorPhotoUrl() {
+        return authorPhotoUrl;
+    }
+
     public static final class Builder {
         private Long id;
 
         private String firstName;
         private String lastName;
+        private String authorPhotoUrl;
+
         private Builder() {
         }
 
@@ -39,12 +46,17 @@ public class AuthorDto {
             this.lastName = lastName;
             return this;
         }
+        public Builder authorPhotoUrl(String authorPhotoUrl) {
+            this.authorPhotoUrl = authorPhotoUrl;
+            return this;
+        }
 
         public AuthorDto build() {
             AuthorDto authorDto = new AuthorDto();
             authorDto.id = this.id;
             authorDto.firstName = this.firstName;
             authorDto.lastName = this.lastName;
+            authorDto.authorPhotoUrl = this.authorPhotoUrl;
             return authorDto;
         }
     }

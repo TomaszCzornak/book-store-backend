@@ -1,7 +1,10 @@
 package com.pekao.projektpekao.controller.Book;
 
 import com.pekao.projektpekao.domain.book.Book;
+import com.pekao.projektpekao.domain.book.BookParams;
+import com.pekao.projektpekao.domain.book.BookParamsMapper;
 import com.pekao.projektpekao.service.BookService;
+import com.pekao.projektpekao.service.ElectronicJournalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -12,17 +15,21 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
+@CrossOrigin(allowedHeaders = "Content-type")
 @RequestMapping("/api/book")
 public class BookController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BookController.class);
 
     private final BookService bookService;
+    private final ElectronicJournalService electronicJournalService;
 
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, ElectronicJournalService electronicJournalService) {
         this.bookService = bookService;
+        this.electronicJournalService = electronicJournalService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/all")
     public BooksResponse getAllBooks() {
         LOGGER.info("Printing all books");
@@ -32,7 +39,15 @@ public class BookController {
                 .build();
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/all/list")
+    public List<BookDto> getListOfBooks() {
+        return BookDtoMapper.toBookDtos(bookService.findAllBooks());
+    }
+
+
     @GetMapping("/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public BookResponse getBookById(@PathVariable("id") Long id) {
         BookDto singleBook = BookDtoMapper.toBookDto(bookService.findBookById(id));
         return BookResponse.builder()
@@ -48,8 +63,8 @@ public class BookController {
     @PostMapping()
     public BookResponse postBook(@RequestBody BookDto bookDto) {
         // DTO -> PARAMSY
-        Book bookToPost = BookEntityMapper.toBookEntity(bookDto);
-        Book bookSaved = bookService.addBook(bookToPost);
+        BookParams bookParams = BookParamsMapper.toCreateBookParams(bookDto);
+        Book bookSaved = bookService.addBook(bookParams);
         BookDto bookDto1 = BookDtoMapper.toBookDto(bookSaved);
         return BookResponse.builder()
                 .bookDtoResponse(bookDto1)
@@ -61,7 +76,7 @@ public class BookController {
         if (!Objects.equals(id, bookService.findBookById(id).getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id does not match");
         }
-        Book bookToPut = BookEntityMapper.toBookEntity(bookDto);
+        BookParams bookToPut = BookParamsMapper.toCreateBookParams(bookDto);
         bookService.updateBook(bookToPut);
     }
 }
