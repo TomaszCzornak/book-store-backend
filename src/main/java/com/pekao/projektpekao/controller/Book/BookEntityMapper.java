@@ -23,9 +23,11 @@ public class BookEntityMapper {
                 .author(Author.builder()
                         .withFirstName(bookDto.getAuthorDto().getFirstName())
                         .withLastName(bookDto.getAuthorDto().getLastName())
+                        .withAuthorPhotoUrl(bookDto.getAuthorDto().getAuthorPhotoUrl())
                         .buildNewEntity())
 //                .publisher(bookDto.getPublisher())
 //                .commentList(CommentEntityMapper.toCommentListEntity(bookDto.getCommentDtoList()))
+                .bookPhoto(bookDto.getBookPhoto())
                 .build();
     }
 
@@ -41,9 +43,11 @@ public class BookEntityMapper {
                 .author(Author.builder()
                         .withFirstName(bookParams.getAuthorDto().getFirstName())
                         .withLastName(bookParams.getAuthorDto().getLastName())
+                        .withAuthorPhotoUrl(bookParams.getAuthorDto().getAuthorPhotoUrl())
                         .buildNewEntity())
                 .publisher(bookParams.getPublisher())
-                .commentList(CommentEntityMapper.toCommentListEntity(bookParams.getCommentDtoList()))
+//                .commentList(CommentEntityMapper.toCommentListEntity(bookParams.getCommentDtoList()))
+                .bookPhoto(bookParams.getBookPhoto())
                 .build();
 
     }

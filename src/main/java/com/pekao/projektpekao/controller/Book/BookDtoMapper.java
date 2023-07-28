@@ -18,7 +18,7 @@ public final class BookDtoMapper {
                 .authorDto(bookParams.getAuthorDto())
                 .title(bookParams.getTitle())
 //                .commentDtoList(bookParams.getCommentDtoList())
-//                .publisher(bookParams.getPublisher())
+                .publisher(bookParams.getPublisher())
                 .build();
 
     }
@@ -35,7 +35,7 @@ public final class BookDtoMapper {
                 .authorDto(AuthorDtoMapper.toAuthorDto(book.getAuthor()))
                 .title(book.getTitle())
 //                .commentDtoList(CommentDtoMapper.toCommentsDto(book.getCommentList()))
-//                .publisher(book.getPublisher())
+                .publisher(book.getPublisher())
                 .bookPhoto(book.getBookPhoto())
                 .build();
 

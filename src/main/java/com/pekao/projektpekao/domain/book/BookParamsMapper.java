@@ -15,7 +15,7 @@ public class BookParamsMapper {
                 .title(bookDto.getTitle())
                 .authorDto(bookDto.getAuthorDto())
 //                .commentDtoList(bookDto.getCommentDtoList())
-//                .publisher(bookDto.getPublisher())
+                .publisher(bookDto.getPublisher())
                 .bookPhoto(bookDto.getBookPhoto())
                 .build();
     }

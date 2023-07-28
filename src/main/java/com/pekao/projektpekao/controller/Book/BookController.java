@@ -11,11 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 @RestController
-@CrossOrigin(allowedHeaders = "Content-type")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "Content-type")
 @RequestMapping("/api/book")
 public class BookController {
 
@@ -29,11 +31,13 @@ public class BookController {
         this.electronicJournalService = electronicJournalService;
     }
 
-//    testowy endpoint do odbioru na froncie
+    //    testowy endpoint do odbioru na froncie
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/all")
-    public BooksResponse getAllBooks() {
-        LOGGER.info("Printing all books");
+    public BooksResponse getAllBooks(HttpServletRequest request, @RequestHeader("User-Agent") String userAgent) {
+
+        String remoteAddr = request.getHeader("X-Forwarded-For");
+        LOGGER.info("To jest IP ziomka " + remoteAddr + " " + LocalDateTime.now() + " " + userAgent);
         List<BookDto> bookDtoList = BookDtoMapper.toBookDtos(bookService.findAllBooks());
         return BooksResponse.builder()
                 .bookResponseList(bookDtoList)
@@ -49,7 +53,9 @@ public class BookController {
 
     @GetMapping("/{id}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public BookResponse getBookById(@PathVariable("id") Long id) {
+    public BookResponse getBookById(@PathVariable("id") Long id, HttpServletRequest request) {
+        String remoteAddr = request.getHeader("X-Forwarded-For");
+        LOGGER.info("To jest IP ziomka " + remoteAddr + " " + LocalDateTime.now());
         BookDto singleBook = BookDtoMapper.toBookDto(bookService.findBookById(id));
         return BookResponse.builder()
                 .bookDtoResponse(singleBook)

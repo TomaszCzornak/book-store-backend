@@ -1,6 +1,9 @@
 package com.pekao.projektpekao.controller.Author;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 public class AuthorDto {
+    private static final AtomicLong count = new AtomicLong(10);
 
     private Long id;
     private String firstName;
@@ -10,6 +13,7 @@ public class AuthorDto {
     public Long getId() {
         return id;
     }
+
 
 
     public String getFirstName() {
@@ -53,7 +57,7 @@ public class AuthorDto {
 
         public AuthorDto build() {
             AuthorDto authorDto = new AuthorDto();
-            authorDto.id = this.id;
+            authorDto.id = count.incrementAndGet();
             authorDto.firstName = this.firstName;
             authorDto.lastName = this.lastName;
             authorDto.authorPhotoUrl = this.authorPhotoUrl;
