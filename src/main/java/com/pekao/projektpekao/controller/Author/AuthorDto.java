@@ -3,7 +3,7 @@ package com.pekao.projektpekao.controller.Author;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class AuthorDto {
-    private static final AtomicLong count = new AtomicLong(10);
+    private static final AtomicLong count = new AtomicLong(0);
 
     private Long id;
     private String firstName;

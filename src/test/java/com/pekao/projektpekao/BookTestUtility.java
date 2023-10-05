@@ -39,15 +39,15 @@ public class BookTestUtility {
                 .title(title)
                 .authorDto(AuthorDtoMapper.toAuthorDto(author))
                 .publisher(publisher)
-                .commentDtoList(
-                        List.of(CommentDto.builder()
-                                        .content("Testowy Komentarz 1")
-                                        .userDto(UserDtoMapper.toUserDto(User.builder().firstName("Ziomek").lastName("Poziomek").build()))
-                                        .build(),
-                                CommentDto.builder()
-                                        .content("Testowy Komentarz 2")
-                                        .userDto(UserDtoMapper.toUserDto(User.builder().firstName("Marian").lastName("Kowalski").build()))
-                                        .build()))
+//                .commentDtoList(
+//                        List.of(CommentDto.builder()
+//                                        .content("Testowy Komentarz 1")
+//                                        .userDto(UserDtoMapper.toUserDto(User.builder().firstName("Ziomek").lastName("Poziomek").build()))
+//                                        .build(),
+//                                CommentDto.builder()
+//                                        .content("Testowy Komentarz 2")
+//                                        .userDto(UserDtoMapper.toUserDto(User.builder().firstName("Marian").lastName("Kowalski").build()))
+//                                        .build()))
                 .build();
 
 

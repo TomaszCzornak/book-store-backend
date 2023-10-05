@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Setter
 @Getter
 public class BookParams {
-    private static final AtomicLong count = new AtomicLong(10);
+    private static final AtomicLong count = new AtomicLong(0);
     private final Long id;
     private final String title;
     private final AuthorDto authorDto;

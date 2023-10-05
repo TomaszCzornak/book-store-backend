@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "Content-type")
+@CrossOrigin(allowedHeaders = "Content-type")
 @RequestMapping("/api/book")
 public class BookController {
 

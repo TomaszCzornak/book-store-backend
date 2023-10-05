@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin")
-@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "Content-type")
+@CrossOrigin(allowedHeaders = "Content-type")
 public class AddBookController {
 
     private final BookService bookService;

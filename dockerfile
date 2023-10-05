@@ -13,7 +13,7 @@ FROM base as build
 RUN ./mvnw package
 
 FROM eclipse-temurin:17-jre-jammy as production
-EXPOSE 8080
+EXPOSE 8081
 COPY --from=build /app/target/projekt-pekao-*.jar /projekt-pekao.jar
 
 #,"-Dspring.profiles.active=dev"

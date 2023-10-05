@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Builder
 public class AuthorParams {
 
-    private static final AtomicLong count = new AtomicLong(10);
+    private static final AtomicLong count = new AtomicLong(0);
     private final Long id;
     private final String firstName;
     private final String lastName;

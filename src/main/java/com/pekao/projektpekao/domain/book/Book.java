@@ -22,9 +22,7 @@ public class Book {
 	@OneToMany(mappedBy = "book", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private List<Comment> commentList;
 	private String bookPhoto;
-	
-	// todo usuwamy relację
-	//usunięta relacja z klasy ElectronicJournal
+
 	@Enumerated(EnumType.STRING)
 	private Publisher publisher;
 	

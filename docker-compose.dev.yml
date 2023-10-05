@@ -6,9 +6,9 @@ services:
       target: development
     ports:
       - "8000:8000"
-      - "8080:8080"
+      - "8081:8081"
     environment:
-      - SERVER_PORT=8080
+      - SERVER_PORT=8081
       - MYSQL_URL=jdbc:mysql://mysqlserver/library
     volumes:
       - ./:/app

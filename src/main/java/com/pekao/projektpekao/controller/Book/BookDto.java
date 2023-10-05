@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Getter
 @Setter
 public class BookDto {
-    private static final AtomicLong count = new AtomicLong(10);
+    private static final AtomicLong count = new AtomicLong(0);
     private Long id;
     private String title;
     private AuthorDto authorDto;
